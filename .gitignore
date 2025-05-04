@@ -1,0 +1,32 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# Logs and output
+*.log
+output.txt
+log/
+
+# Virtual environments
+.venv/
+env/
+ENV/
+
+# VS Code settings
+.vscode/
+desktop.ini
+
+# Testing / Caches
+.Pytest_cache/
+
+# Secrets / Environment
+.env
+
+# Data & mock files (ระวัง push data จริง)
+Data/
+mockdata/
+Warehouse/
+
+# Optional - Ignore CSV/JSON if sensitive or too large
+*.csv
+*.json

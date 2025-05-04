@@ -344,10 +344,7 @@ google-auth = ">=2.14.1,<3.0.dev0"
 googleapis-common-protos = ">=1.56.2,<2.0.dev0"
 grpcio = {version = ">=1.49.1,<2.0dev", optional = true, markers = "python_version >= \"3.11\" and extra == \"grpc\""}
 grpcio-status = {version = ">=1.49.1,<2.0.dev0", optional = true, markers = "python_version >= \"3.11\" and extra == \"grpc\""}
-proto-plus = [
-    {version = ">=1.25.0,<2.0.0dev", markers = "python_version >= \"3.13\""},
-    {version = ">=1.22.3,<2.0.0dev"},
-]
+proto-plus = ">=1.22.3,<2.0.0dev"
 protobuf = ">=3.19.5,<3.20.0 || >3.20.0,<3.20.1 || >3.20.1,<4.21.0 || >4.21.0,<4.21.1 || >4.21.1,<4.21.2 || >4.21.2,<4.21.3 || >4.21.3,<4.21.4 || >4.21.4,<4.21.5 || >4.21.5,<6.0.0.dev0"
 requests = ">=2.18.0,<3.0.0.dev0"
 
@@ -730,17 +727,6 @@ files = [
 rapidfuzz = ">=3.9.0,<4.0.0"
 
 [[package]]
-name = "logging"
-version = "0.4.9.6"
-description = "A logging module for Python"
-optional = false
-python-versions = "*"
-groups = ["main"]
-files = [
-    {file = "logging-0.4.9.6.tar.gz", hash = "sha256:26f6b50773f085042d301085bd1bf5d9f3735704db9f37c1ce6d8b85c38f2417"},
-]
-
-[[package]]
 name = "numpy"
 version = "2.2.4"
 description = "Fundamental package for array computing in Python"
@@ -1099,6 +1085,58 @@ pluggy = ">=1.5,<2"
 dev = ["argcomplete", "attrs (>=19.2)", "hypothesis (>=3.56)", "mock", "pygments (>=2.7.2)", "requests", "setuptools", "xmlschema"]
 
 [[package]]
+name = "pythainlp"
+version = "5.1.1"
+description = "Thai Natural Language Processing library"
+optional = false
+python-versions = ">=3.7"
+groups = ["main"]
+files = [
+    {file = "pythainlp-5.1.1-py3-none-any.whl", hash = "sha256:977d4126a46d41a86e348626f4247e91625254b56b089f666b935c5d72b53bb2"},
+    {file = "pythainlp-5.1.1.tar.gz", hash = "sha256:1752bab076737827f8121a9929cba5aad3ae76e6cabd8d90d47556a509106f34"},
+]
+
+[package.dependencies]
+requests = ">=2.31"
+tzdata = {version = "*", markers = "sys_platform == \"win32\""}
+
+[package.extras]
+abbreviation = ["khamyo (>=0.2.0)"]
+attacut = ["attacut (>=1.0.6)"]
+benchmarks = ["PyYAML (>=5.4.1)", "numpy (>=1.22)", "pandas (>=0.24)"]
+compact = ["PyYAML (>=5.4.1)", "nlpo3 (>=1.3.1)", "numpy (>=1.22)", "pyicu (>=2.3)", "python-crfsuite (>=0.9.7)"]
+coreference-resolution = ["fastcoref (>=2.1.5)", "spacy (>=3.0)"]
+dependency-parsing = ["spacy_thai (>=0.7.1)", "transformers (>=4.22.1)", "ufal.chu-liu-edmonds (>=1.0.2)"]
+el = ["multiel (>=0.5)"]
+esupar = ["esupar (>=1.3.8)", "numpy", "transformers (>=4.22.1)"]
+full = ["PyYAML (>=5.4.1)", "attacut (>=1.0.4)", "bpemb (>=0.3.2)", "emoji (>=0.5.1)", "epitran (>=1.1)", "fairseq (>=0.10.0)", "fastai (<2.0)", "fastcoref (>=2.1.5)", "gensim (>=4.0.0)", "khamyo (>=0.2.0)", "nlpo3 (>=1.3.1)", "nltk (>=3.3)", "numpy (>=1.22)", "onnxruntime (>=1.10.0)", "oskut (>=1.3)", "pandas (>=0.24)", "panphon (>=0.20.0)", "phunspell (>=0.1.6)", "pyicu (>=2.3)", "sacremoses (>=0.0.41)", "sefr_cut (>=1.1)", "sentence-transformers (>=2.2.2)", "sentencepiece (>=0.1.91)", "spacy (>=3.0)", "spacy_thai (>=0.7.1)", "spylls (>=0.1.5)", "ssg (>=0.0.8)", "symspellpy (>=6.7.6)", "thai_nner", "torch (>=1.0.0)", "transformers (>=4.22.1)", "ufal.chu-liu-edmonds (>=1.0.2)", "wtpsplit (>=1.0.1)", "wunsen (>=0.0.3)"]
+generate = ["fastai (<2.0)"]
+icu = ["pyicu (>=2.3)"]
+ipa = ["epitran (>=1.1)"]
+ml = ["numpy (>=1.22)", "torch (>=1.0.0)"]
+mt5 = ["sentencepiece (>=0.1.91)", "transformers (>=4.6.0)"]
+nlpo3 = ["nlpo3 (>=1.3.1)"]
+onnx = ["numpy (>=1.22)", "onnxruntime (>=1.10.0)", "sentencepiece (>=0.1.91)"]
+oskut = ["oskut (>=1.3)"]
+sefr-cut = ["sefr_cut (>=1.1)"]
+spacy-thai = ["spacy_thai (>=0.7.1)"]
+spell = ["phunspell (>=0.1.6)", "spylls (>=0.1.5)", "symspellpy (>=6.7.6)"]
+ssg = ["ssg (>=0.0.8)"]
+textaugment = ["bpemb", "gensim (>=4.0.0)"]
+thai-nner = ["thai_nner"]
+thai2fit = ["emoji (>=0.5.1)", "gensim (>=4.0.0)", "numpy (>=1.22)"]
+thai2rom = ["numpy (>=1.22)", "torch (>=1.0.0)"]
+transformers-ud = ["transformers (>=4.22.1)", "ufal.chu-liu-edmonds (>=1.0.2)"]
+translate = ["fairseq (>=0.10.0)", "sacremoses (>=0.0.41)", "sentencepiece (>=0.1.91)", "torch (>=1.0.0)", "transformers (>=4.6.0)"]
+wangchanberta = ["sentencepiece (>=0.1.91)", "transformers (>=4.6.0)"]
+wangchanglm = ["pandas (>=0.24)", "sentencepiece (>=0.1.91)", "transformers (>=4.6.0)"]
+word-approximation = ["panphon (>=0.20.0)"]
+wordnet = ["nltk (>=3.3)"]
+wsd = ["sentence-transformers (>=2.2.2)"]
+wtp = ["transformers (>=4.6.0)", "wtpsplit (>=1.0.1)"]
+wunsen = ["wunsen (>=0.0.1)"]
+
+[[package]]
 name = "python-dateutil"
 version = "2.9.0.post0"
 description = "Extensions to the standard Python datetime module"
@@ -1271,27 +1309,11 @@ use-chardet-on-py3 = ["chardet (>=3.0.2,<6)"]
 
 [[package]]
 name = "rsa"
-version = "4.2"
-description = "Pure-Python RSA implementation"
-optional = false
-python-versions = "*"
-groups = ["main"]
-markers = "python_version >= \"3.13\""
-files = [
-    {file = "rsa-4.2.tar.gz", hash = "sha256:aaefa4b84752e3e99bd8333a2e1e3e7a7da64614042bd66f775573424370108a"},
-]
-
-[package.dependencies]
-pyasn1 = ">=0.1.3"
-
-[[package]]
-name = "rsa"
 version = "4.9"
 description = "Pure-Python RSA implementation"
 optional = false
 python-versions = ">=3.6,<4"
 groups = ["main"]
-markers = "python_version < \"3.13\""
 files = [
     {file = "rsa-4.9-py3-none-any.whl", hash = "sha256:90260d9058e514786967344d0ef75fa8727eed8a7d2e43ce9f4bcf1b536174f7"},
     {file = "rsa-4.9.tar.gz", hash = "sha256:e38464a49c6c85d7f1351b0126661487a7e0a14a50f1675ec50eb34d4f20ef21"},
@@ -1366,5 +1388,5 @@ zstd = ["zstandard (>=0.18.0)"]
 
 [metadata]
 lock-version = "2.1"
-python-versions = ">=3.12"
-content-hash = "f6d14e608c6e2c53239914de0d698b9d9b36481f0a74e500ac359fd35689486a"
+python-versions = ">=3.12,<3.13"
+content-hash = "3171ffe6059c182e2fd0e26632fb61fa52088408acf6c99f5be5518ed4c073a2"
