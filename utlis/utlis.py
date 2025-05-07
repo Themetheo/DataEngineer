@@ -70,3 +70,40 @@ def hash_and_move_column(df: pd.DataFrame, colname: str, method='sha224'):
     df = df[cols]
 
     return df
+
+import pandas as pd
+import logging
+from sklearn.metrics import precision_score, recall_score, f1_score, accuracy_score
+
+from utlis import setup_logger
+
+logger = setup_logger("evaluate")
+
+def evaluate_against_gold(match_path: str, truth_path: str) -> None:
+    """
+    ประเมินผลการแมตช์ของระบบเทียบกับ gold (truth)
+    คำนวณ Accuracy, Precision, Recall, F1-score
+    """
+    match_df = pd.read_csv(match_path)
+    truth_df = pd.read_csv(truth_path)
+
+    df = match_df.merge(truth_df, on="raw_text", suffixes=("_pred", "_true"))
+
+    y_true = df["product_id_true"].fillna("").astype(str)
+    y_pred = df["product_id_pred"].fillna("").astype(str)
+
+    accuracy = accuracy_score(y_true, y_pred)
+    precision = precision_score(y_true, y_pred, average="micro", zero_division=0)
+    recall = recall_score(y_true, y_pred, average="micro", zero_division=0)
+    f1 = f1_score(y_true, y_pred, average="micro", zero_division=0)
+
+    logger.info(f"📊 Accuracy: {accuracy:.2%}")
+    logger.info(f"📊 Precision: {precision:.2%}")
+    logger.info(f"📊 Recall: {recall:.2%}")
+    logger.info(f"📊 F1-score: {f1:.2%}")
+
+    print("===== Evaluation Summary =====")
+    print(f"✅ Accuracy:  {accuracy:.2%}")
+    print(f"🎯 Precision: {precision:.2%}")
+    print(f"📡 Recall:    {recall:.2%}")
+    print(f"📌 F1-score:  {f1:.2%}")
