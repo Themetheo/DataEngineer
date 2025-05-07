@@ -1,10 +1,8 @@
 import pandas as pd
 import json
-import re
-import logging
 import os
 from rapidfuzz import process, fuzz
-from tqdm import tqdm
+from tqdm import tqdm # type: ignore
 from utlis.utlis import setup_logger
 from typing import Tuple, List, Optional, Union
 

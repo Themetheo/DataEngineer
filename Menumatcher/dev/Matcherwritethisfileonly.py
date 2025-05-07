@@ -3,7 +3,8 @@ import pandas as pd
 import re
 from typing import Dict, Any, Optional, Tuple, List
 from rapidfuzz import process, fuzz
-from tqdm import tqdm
+from tqdm import tqdm # type: ignore
+from datetime import datetime
 from utlis import setup_logger
 
 class MenuMatcher:
@@ -23,7 +24,7 @@ class MenuMatcher:
             v: k for k, v in self.menu_dict.items() if isinstance(v, str)
         }
         self.manual_rules: Dict[str, str] = {
-            v.replace("ธรรมดา", "").strip(): v for v in self.name_to_code if v.endswith("ธรรมดา")
+            v.replace("ธรรมดา", "").strip(): v for v in self.name_to_code if v.endswith("ธรรมด")
         }
         self.cleaned_menu_map: Dict[str, Tuple[str, str]] = {
             self.clean_text(name): (code, name)
@@ -39,13 +40,13 @@ class MenuMatcher:
         if pd.isna(text):
             return ""
         text = re.sub(r"x\s*\d+", "", text)
-        text = re.sub(r"[!\"',.\[\]()]", "", text)
+        text = re.sub(r"[!\"',.\[\]()]+", "", text)
         text = re.sub(r"(กล่อง|ถุง|แถมฟรี|แถม)", "", text)
         text = re.sub(r"\s+", "", text)
         return text.strip()
 
     def extract_keywords(self, text: str) -> str:
-        tokens = re.findall(r'[ก-๙]+', str(text))
+        tokens = re.findall(r'[\u0E00-\u0E7F]+', str(text))
         keywords = []
         for token in tokens:
             for word in self.codemenu.values():
@@ -97,13 +98,14 @@ class MenuMatcher:
         self.logger.warning(f"❌ Failed to match: {raw_text}")
         return "", "", "unmatched", None, cleaned, keyworded
 
-    def match_all(
-        self,
-        output_path: str = r"modules\Menumatcher\Output\sample_data_matched_result.csv",
-        detail_path: str = r"modules\Menumatcher\Output\match_detail_result.csv"
-    ) -> None:
-        os.makedirs(os.path.dirname(output_path), exist_ok=True)
-        os.makedirs(os.path.dirname(detail_path), exist_ok=True)
+    def match_all(self, output_dir_data: str = r"modules\Menumatcher\Output\data",
+                  output_dir_detail: str = r"modules\Menumatcher\Output\result") -> None:
+        os.makedirs(output_dir_data, exist_ok=True)
+        os.makedirs(output_dir_detail, exist_ok=True)
+
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        output_path = os.path.join(output_dir_data, f"sample_data_matched_{timestamp}.csv")
+        detail_path = os.path.join(output_dir_detail, f"match_detail_result_{timestamp}.csv")
 
         std_menu_result: List[str] = []
         product_id_result: List[str] = []
