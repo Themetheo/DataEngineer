@@ -2,6 +2,10 @@ import hashlib
 import pandas as pd
 import logging
 import os
+from sklearn.metrics import precision_score, recall_score, f1_score, accuracy_score
+
+
+
 
 # ฟังก์ชันสำหรับแฮชคอลัมน์
 def hash_column(series: pd.Series, method='sha224') -> pd.Series:
@@ -71,19 +75,13 @@ def hash_and_move_column(df: pd.DataFrame, colname: str, method='sha224'):
 
     return df
 
-import pandas as pd
-import logging
-from sklearn.metrics import precision_score, recall_score, f1_score, accuracy_score
-
-from utlis import setup_logger
-
-logger = setup_logger("evaluate")
 
 def evaluate_against_gold(match_path: str, truth_path: str) -> None:
     """
     ประเมินผลการแมตช์ของระบบเทียบกับ gold (truth)
     คำนวณ Accuracy, Precision, Recall, F1-score
     """
+    logger = setup_logger("evaluate")
     match_df = pd.read_csv(match_path)
     truth_df = pd.read_csv(truth_path)
 
